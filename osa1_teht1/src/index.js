@@ -11,12 +11,12 @@ const Otsikko = (props) => {
 
 const Sisalto = (props) => {
     return (
-    <div>
-        <Osa osa={props.osa1.nimi} tehtavia={props.osa1.tehtavia}/>
-        <Osa osa={props.osa2.nimi} tehtavia={props.osa2.tehtavia}/>
-        <Osa osa={props.osa3.nimi} tehtavia={props.osa3.tehtavia}/>
-        
-    </div>
+        <div>
+            <Osa osa={props.osat[0].nimi} tehtavia={props.osat[0].tehtavia} />
+            <Osa osa={props.osat[1].nimi} tehtavia={props.osat[1].tehtavia} />
+            <Osa osa={props.osat[2].nimi} tehtavia={props.osat[2].tehtavia} />
+
+        </div>
     )
 }
 
@@ -29,40 +29,44 @@ const Osa = (props) => {
 }
 
 const Yhteensa = (props) => {
+    let x = 0;
+    props.osat.forEach(element => {
+        x += element.tehtavia
+    });
     return (
-    <div>
-        <p>Yhteensä {props.tehtavia} tehtävää</p>
-    </div>
+        <div>
+            <p>Yhteensä {x} tehtävää</p>
+        </div>
     )
 }
 
 const App = () => {
-  const kurssi = 'Half Stack -sovelluskehitys'
-  const osa1 = {
-      nimi: 'Reactin perusteet',
-      tehtavia: 10
-  }
+    const kurssi = 'Half Stack -sovelluskehitys'
+    const osat = [
+        {
+            nimi: 'Reactin perusteet',
+            tehtavia: 10
+        },
+        {
+            nimi: 'Tiedonvälitys propseilla',
+            tehtavia: 7
+        },
+        {
+            nimi: 'Komponenttien tila',
+            tehtavia: 14
+        }
+    ]
 
-  const osa2 = {
-      nimi: 'Tiedonvälitys propseilla',
-      tehtavia: 7
-  }
-
-  const osa3 = {
-      nimi: 'Komponenttien tila',
-      tehtavia: 14
-  }
-
-  return (
-    <div>
-       <Otsikko kurssi={kurssi}/> 
-       <Sisalto osa1={osa1} osa2={osa2} osa3={osa3}/>
-       <Yhteensa tehtavia={osa1.tehtavia + osa2.tehtavia + osa3.tehtavia}/>
-    </div>
-  )
+    return (
+        <div>
+            <Otsikko kurssi={kurssi} />
+            <Sisalto osat={osat} />
+            <Yhteensa osat={osat} />
+        </div>
+    )
 }
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <App />,
+    document.getElementById('root')
 )
