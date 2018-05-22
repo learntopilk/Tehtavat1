@@ -58,10 +58,10 @@ class Unicafe extends React.Component {
         }
     }
     updateStats = () => {
-            this.setState({
-                ka: ((this.state.good + (this.state.bad * (-1))) / this.state.votes).toFixed(2),
-                pos: ((this.state.good / (this.state.votes)) * 100).toFixed(2)
-            })
+        this.setState({
+            ka: ((this.state.good + (this.state.bad * (-1))) / this.state.votes).toFixed(2),
+            pos: ((this.state.good / (this.state.votes)) * 100).toFixed(2)
+        })
     }
 
     handleClickGood = () => {
@@ -80,12 +80,27 @@ class Unicafe extends React.Component {
 
     handleClickBad = () => {
         this.setState({
-            votes: this.state.votes + 1, 
+            votes: this.state.votes + 1,
             bad: this.state.bad + 1,
         }, this.updateStats)
     }
 
     render() {
+        if (this.state.votes === 0) {
+            return (
+                <div>
+                    <div>
+                        <h5>Miltä maistui?</h5>
+                        <Button handleClick={this.handleClickGood} label="Hyvältä" />
+                        <Button handleClick={this.handleClickOK} label="Iha jees oli" />
+                        <Button handleClick={this.handleClickBad} label="Kauheeta huonoo" />
+                    </div>
+                    <div>
+                        <h4>Äänestä nähdäksesi tilastoja</h4>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div>
                 <div>
