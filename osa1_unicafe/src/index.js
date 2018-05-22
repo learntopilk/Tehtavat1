@@ -47,6 +47,15 @@ class Unicafe extends React.Component {
 
 
     render() {
+        let ka = 0.00;
+        let pos = 0.00;
+        if (this.state.votes !== 0) {
+            ka = ((this.state.good + (this.state.bad * (-1))) / this.state.votes).toFixed(2)
+            pos = Math.round((this.state.good / (this.state.votes)) * 100).toFixed(2)
+        }
+
+
+
         return (
             <div>
                 <div>
@@ -65,6 +74,12 @@ class Unicafe extends React.Component {
                     </div>
                     <div>
                         <span>Ei-tykänneitä: </span><span>{this.state.bad}</span>
+                    </div>
+                    <div>
+                        <span>Keskiarvo: </span><span>{ka}</span>
+                    </div>
+                    <div>
+                        <span>Positiivisia: </span><span>{pos}%</span>
                     </div>
                 </div>
             </div>
