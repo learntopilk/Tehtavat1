@@ -61,39 +61,31 @@ class Unicafe extends React.Component {
         this.setState({
             ka: ((this.state.good + (this.state.bad * (-1))) / this.state.votes).toFixed(2),
             pos: ((this.state.good / (this.state.votes)) * 100).toFixed(2)
-        })
+        }, console.log(this.state))
     }
 
-    handleClickGood = () => {
-        this.setState({
-            votes: this.state.votes + 1,
-            good: this.state.good + 1,
-        }, this.updateStats)
-    }
+    handleClick = (val) => {
+        return () => {
+            console.log(val, this.state[val], val.good)
+            this.setState({
+                votes: this.state.votes + 1,
+                [val]: this.state[val] + 1
+            }, this.updateStats)
+        }
 
-    handleClickOK = () => {
-        this.setState({
-            votes: this.state.votes + 1,
-            ok: this.state.ok + 1,
-        }, this.updateStats)
     }
-
-    handleClickBad = () => {
-        this.setState({
-            votes: this.state.votes + 1,
-            bad: this.state.bad + 1,
-        }, this.updateStats)
-    }
-
     render() {
+        const good = "good"
+        const ok = "ok"
+        const bad = "bad"
         if (this.state.votes === 0) {
             return (
                 <div>
                     <div>
                         <h5>Miltä maistui?</h5>
-                        <Button handleClick={this.handleClickGood} label="Hyvältä" />
-                        <Button handleClick={this.handleClickOK} label="Iha jees oli" />
-                        <Button handleClick={this.handleClickBad} label="Kauheeta huonoo" />
+                        <Button handleClick={this.handleClick(good)} label="Hyvältä" />
+                        <Button handleClick={this.handleClick(ok)} label="Iha jees oli" />
+                        <Button handleClick={this.handleClick(bad)} label="Kauheeta huonoo" />
                     </div>
                     <div>
                         <h4>Äänestä nähdäksesi tilastoja</h4>
@@ -105,9 +97,9 @@ class Unicafe extends React.Component {
             <div>
                 <div>
                     <h5>Miltä maistui?</h5>
-                    <Button handleClick={this.handleClickGood} label="Hyvältä" />
-                    <Button handleClick={this.handleClickOK} label="Iha jees oli" />
-                    <Button handleClick={this.handleClickBad} label="Kauheeta huonoo" />
+                    <Button handleClick={this.handleClick(good)} label="Hyvältä" />
+                    <Button handleClick={this.handleClick(ok)} label="Iha jees oli" />
+                    <Button handleClick={this.handleClick(bad)} label="Kauheeta huonoo" />
                 </div>
                 <div>
                     <Statistics props={this.state} />
