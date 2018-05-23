@@ -34,6 +34,7 @@ class App extends React.Component {
                 <p>{this.props.anecdotes[sel]}</p>
                 <p>This anecdote has {this.state.votes[sel]} votes.</p>
                 <Button handler={this.registerVote()} text="Vote for this anecdote" />
+                <MostVoted votes={this.state.votes}/>
             </div>
         )
     }
@@ -42,6 +43,26 @@ class App extends React.Component {
 const Button = ({ handler, text }) => {
     return (
         <button onClick={handler}>{text}</button>
+    )
+}
+
+const MostVoted = ({votes}) => {
+    let mostV = 0;
+    let indexOfMostVoted
+    console.log("evaluating most voted", votes)
+    for (let i = 0; i < anecdotes.length; i++) {
+        if (votes[i] > mostV) {
+            mostV = votes[i]
+            indexOfMostVoted = i
+        }
+    }
+    console.log(mostV)
+
+    return (
+        <div>
+            <h5>Eniten ääniä saanut anekdootti:</h5>
+            <p>{anecdotes[indexOfMostVoted]}</p>
+        </div>
     )
 }
 
