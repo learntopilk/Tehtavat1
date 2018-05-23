@@ -5,7 +5,8 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selected: 0
+            selected: 0,
+            votes: [0, 0, 0, 0, 0, 0]
         }
     }
     getNewAnecdote = () => {
@@ -16,19 +17,31 @@ class App extends React.Component {
             }, console.log(this.state))
         }
     }
+    registerVote = () => {
+        return () => {
+            let arr = this.state.votes
+            arr[this.state.selected]++
+            this.setState({
+                votes: arr
+            })
+        }
+    }
     render() {
+        let sel = this.state.selected
         return (
             <div>
-                <Button handler={this.getNewAnecdote()} />
-                <p>{this.props.anecdotes[this.state.selected]}</p>
+                <Button handler={this.getNewAnecdote()} text="New Anecdote" />
+                <p>{this.props.anecdotes[sel]}</p>
+                <p>This anecdote has {this.state.votes[sel]} votes.</p>
+                <Button handler={this.registerVote()} text="Vote for this anecdote" />
             </div>
         )
     }
 }
 
-const Button = ({handler}) => {
+const Button = ({ handler, text }) => {
     return (
-        <button onClick={handler}>New anecdote</button>
+        <button onClick={handler}>{text}</button>
     )
 }
 
