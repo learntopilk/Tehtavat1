@@ -19,11 +19,15 @@ const Statistics = (props) => {
     return (
         <div className="statistics">
             <h5>Statistiikkaa Statistics-komponentista!</h5>
-            <Statistic label="Tykänneitä" value={props.props.good} />
-            <Statistic label="Semityytyväisiä" value={props.props.ok} />
-            <Statistic label="Ei-tykänneitä" value={props.props.bad} />
-            <Statistic label="Keskiarvo" value={props.props.ka} />
-            <Statistic label="Positiivisia" value={props.props.pos} />
+            <table>
+                <tbody>
+                    <Statistic label="Tykänneitä" value={props.props.good} />
+                    <Statistic label="Semityytyväisiä" value={props.props.ok} />
+                    <Statistic label="Ei-tykänneitä" value={props.props.bad} />
+                    <Statistic label="Keskiarvo" value={props.props.ka} />
+                    <Statistic label="Positiivisia" value={props.props.pos} />
+                </tbody>
+            </table>
         </div>
     )
 }
@@ -31,15 +35,15 @@ const Statistics = (props) => {
 const Statistic = ({ label, value }) => {
     if (label === "Positiivisia") {
         return (
-            <div>
-                <span>{label}: </span><span>{value}%</span>
-            </div>
+            <tr>
+                <td>{label}: </td><td>{value}%</td>
+            </tr>
         )
     } else {
         return (
-            <div>
-                <span>{label}: </span><span>{value}</span>
-            </div>
+            <tr>
+                <td>{label}: </td><td>{value}</td>
+            </tr>
         )
     }
 }
@@ -66,7 +70,6 @@ class Unicafe extends React.Component {
 
     handleClick = (val) => {
         return () => {
-            console.log(val, this.state[val], val.good)
             this.setState({
                 votes: this.state.votes + 1,
                 [val]: this.state[val] + 1
